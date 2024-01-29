@@ -10,13 +10,23 @@ interface INFT is IERC721 {
   function mint(address to) external;
 }
 
+interface ISFS {
+  function assign(uint256 _tokenId) external returns (uint256);
+}
+
 contract MerkleClaimerERC721 is OwnableWithManagers {
   address public immutable nftAddress;
   bool public paused = false;
   bytes32 public immutable root; // merkle root
 
   // CONSTRUCTOR
-  constructor(address nftAddress_, bytes32 root_) {
+  constructor(
+    address sfsAddress_,
+    uint256 sfsNftId_,
+    address nftAddress_, 
+    bytes32 root_
+  ) {
+    ISFS(sfsAddress_).assign(sfsNftId_);
     nftAddress = nftAddress_;
     root = root_;
   }

@@ -8,6 +8,10 @@ interface INFT {
   function owner() external view returns(address);
 }
 
+interface ISFS {
+  function assign(uint256 _tokenId) external returns (uint256);
+}
+
 /** 
  * DEPRECATED
 @title Default metadata contract for ERC-721 NFTs made with Iggy Launchpad
@@ -29,6 +33,14 @@ contract NftMetadata2 {
   // - 1: url to metadata IPFS or custom API. One metadata URL for all NFTs (meaning all NFTs have the same metadata and image).
   // - 2: base url to metadata IPFS or custom API. Token ID of each NFT is appended to the base url to get the metadata and image (ends with .json extension).
   // - 3: base url to metadata IPFS or custom API. Token ID of each NFT is appended to the base url to get the metadata and image (does NOT end with .json extension).
+
+  // CONSTRUCTOR
+  constructor(
+    address sfsAddress_,
+    uint256 sfsNftId_
+  ) {
+    ISFS(sfsAddress_).assign(sfsNftId_);
+  }
 
   // READ
 

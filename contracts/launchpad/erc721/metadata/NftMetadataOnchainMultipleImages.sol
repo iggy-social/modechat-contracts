@@ -5,6 +5,10 @@ import { OwnableWithManagers } from "../../../access/OwnableWithManagers.sol";
 import { Base64 } from "@openzeppelin/contracts/utils/Base64.sol";
 import { Strings } from "@openzeppelin/contracts/utils/Strings.sol";
 
+interface ISFS {
+  function assign(uint256 _tokenId) external returns (uint256);
+}
+
 /** 
 @title Metadata contract for a single ERC-721 NFT made with Iggy Launchpad. This contract allows for multiple onchain image URLs.
 @author Tempe Techie
@@ -29,12 +33,15 @@ contract NftMetadataOnchainMultipleImages is OwnableWithManagers {
 
   // CONSTRUCTOR
   constructor (
+    address sfsAddress_,
+    uint256 sfsNftId_,
     string memory collectionPreview_,
     string memory description_, 
     string memory externalUrl_,
     string memory image_,
     string memory name_
   ) {
+    ISFS(sfsAddress_).assign(sfsNftId_);
     collectionPreview = collectionPreview_;
     description = description_;
     externalUrl = externalUrl_;

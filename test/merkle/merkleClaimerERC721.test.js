@@ -28,12 +28,21 @@ describe("MerkleClaimerERC721", function () {
   let user2;
   let user3;
   let user4;
+  let feeReceiver;
 
   let claimers;
   let tree; // merkle tree
 
   beforeEach(async function () {
-    [owner, user1, user2, user3, user4] = await ethers.getSigners();
+    [owner, user1, user2, user3, user4, feeReceiver] = await ethers.getSigners();
+
+    const MockSFS = await ethers.getContractFactory("MockSFS");
+    const sfsContract = await MockSFS.deploy();
+
+    const SfsNftInitialize = await ethers.getContractFactory("SfsNftInitialize");
+    const sfsNftInitializeContract = await SfsNftInitialize.deploy(sfsContract.address, feeReceiver.address);
+
+    const sfsNftTokenId = await sfsNftInitializeContract.sfsNftTokenId();
 
     // deploy nft contract
     const MockErc721WithMinter = await ethers.getContractFactory("MockErc721WithMinter");
@@ -54,7 +63,12 @@ describe("MerkleClaimerERC721", function () {
 
     // deploy nft minter
     const MerkleClaimerERC721 = await ethers.getContractFactory("MerkleClaimerERC721");
-    merkleClaimerContract = await MerkleClaimerERC721.deploy(nftContract.address, tree.root);
+    merkleClaimerContract = await MerkleClaimerERC721.deploy(
+      sfsContract.address,
+      sfsNftTokenId,
+      nftContract.address, 
+      tree.root
+    );
     await merkleClaimerContract.deployed();
 
     // add minter address to nft contract

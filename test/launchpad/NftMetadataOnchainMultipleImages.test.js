@@ -20,6 +20,7 @@ function calculateGasCosts(testName, receipt) {
 
 describe("NftMetadataOnchainMultipleImages", function () {
   let metadataContract;
+  let feeReceiver;
 
   // NFT contract data
   const nftDescription = "Iggy NFT is a new unique NFT project";
@@ -56,9 +57,21 @@ describe("NftMetadataOnchainMultipleImages", function () {
   ];  
 
   beforeEach(async function () {
+    [feeReceiver] = await ethers.getSigners();
+
+    const MockSFS = await ethers.getContractFactory("MockSFS");
+    const sfsContract = await MockSFS.deploy();
+
+    const SfsNftInitialize = await ethers.getContractFactory("SfsNftInitialize");
+    const sfsNftInitializeContract = await SfsNftInitialize.deploy(sfsContract.address, feeReceiver.address);
+
+    const sfsNftTokenId = await sfsNftInitializeContract.sfsNftTokenId();
+
     const NftMetadata = await ethers.getContractFactory("NftMetadataOnchainMultipleImages");
 
     metadataContract = await NftMetadata.deploy(
+      sfsContract.address,
+      sfsNftTokenId,
       nftImage, // collectionPreviewImage
       nftDescription, // description
       externalUrl, // externalUrl

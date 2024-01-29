@@ -67,11 +67,11 @@ describe("IggyLaunchpad721Bonding", function () {
     await statsContract.setStatsWriterAddress(statsMiddlewareContract.address);
 
     const NftMetadata = await ethers.getContractFactory("NftMetadata");
-    metadataContract = await NftMetadata.deploy();
+    metadataContract = await NftMetadata.deploy(sfsContract.address, sfsNftTokenId);
     await metadataContract.deployed();
 
     const NftDirectory = await ethers.getContractFactory("NftDirectory");
-    directoryContract = await NftDirectory.deploy();
+    directoryContract = await NftDirectory.deploy(sfsContract.address, sfsNftTokenId);
     await directoryContract.deployed();
 
     const IggyLaunchpad721Bonding = await ethers.getContractFactory("IggyLaunchpad721Bonding");

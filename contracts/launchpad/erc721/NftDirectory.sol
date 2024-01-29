@@ -3,6 +3,10 @@ pragma solidity ^0.8.17;
 
 import { OwnableWithManagers } from "../../access/OwnableWithManagers.sol";
 
+interface ISFS {
+  function assign(uint256 _tokenId) external returns (uint256);
+}
+
 /** 
 @title A directory of ERC-721 NFTs made with a Iggy Launchpad
 @author Tempe Techie
@@ -13,6 +17,14 @@ contract NftDirectory is OwnableWithManagers {
 
   mapping (address => bool) public writers; // writer contracts that can send stats to this contract
   mapping (string => address) public nftAddressById; // mapping(uniqueID => NFT contract address) to easily find the NFT contract address
+
+  // CONSTRUCTOR
+  constructor(
+    address sfsAddress_,
+    uint256 sfsNftId_
+  ) {
+    ISFS(sfsAddress_).assign(sfsNftId_);
+  }
 
   // READ
 
