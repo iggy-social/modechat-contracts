@@ -11,7 +11,8 @@ if (sfsNftTokenId == 0) {
   console.log("Please enter SFS NFT token ID!!!");
   return;
 }
-const metadataAddress = "0x633Ae857445cF0cd02B21C6a3033C7CE74fB32c2";
+
+const metadataAddress = "";
 const collectionName = "ModeChat Posts";
 const collectionSymbol = "MODECHATPOST";
 

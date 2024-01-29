@@ -23,7 +23,7 @@ contract IggyPostStats is OwnableWithManagers {
   // EVENTS
   event MinterAddressChanged(address indexed user, address minterAddress);
 
-  // constructor
+  // CONSTRUCTOR
   constructor(
     address _sfsAddress,
     uint256 _tokenId,

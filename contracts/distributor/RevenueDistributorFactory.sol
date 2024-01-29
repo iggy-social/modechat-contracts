@@ -3,10 +3,16 @@ pragma solidity ^0.8.17;
 
 import "./RevenueDistributor.sol";
 
+interface ISFSF {
+  function assign(uint256 _tokenId) external returns (uint256);
+}
+
 /// @title RevenueDistributor factory
 /// @author Tempe Techie
 /// @notice Factory that creates new RevenueDistributor contracts
 contract RevenueDistributorFactory {
+  address public immutable sfsAddress;
+
   uint256 private constant ID_MAX_LENGTH = 30;
 
   // mapping(uniqueID => RevenueDistributor contract address) to easily find a RevenueDistributor contract address
@@ -14,6 +20,15 @@ contract RevenueDistributorFactory {
 
   // EVENTS
   event RevenueDistributorLaunch(address indexed contractOwner_, string uniqueId_, address indexed contractAddress_);
+
+  // CONSTRUCTOR
+  constructor(
+    address sfsAddress_,
+    uint256 tokenId_
+  ) {
+    ISFSF(sfsAddress_).assign(tokenId_);
+    sfsAddress = sfsAddress_;
+  }
 
   // READ
 
@@ -32,7 +47,10 @@ contract RevenueDistributorFactory {
     require(isUniqueIdAvailable(uniqueId_), "Unique ID is not available");
 
     bytes32 saltedHash = keccak256(abi.encodePacked(msg.sender, block.timestamp, uniqueId_));
-    RevenueDistributor distributor = new RevenueDistributor{salt: saltedHash}();
+    RevenueDistributor distributor = new RevenueDistributor{salt: saltedHash}(
+      sfsAddress,
+      msg.sender // SFS NFT holder
+    );
 
     distributorAddressById[uniqueId_] = address(distributor);
 

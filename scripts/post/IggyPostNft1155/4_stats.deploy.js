@@ -10,7 +10,7 @@ if (sfsNftTokenId == 0) {
   console.log("Please enter SFS NFT token ID!!!");
   return;
 }
-const minterAddress = "0x5e54CebB2612744cB56547bC7CC41466ad7ac557";
+const minterAddress = "";
 const shouldStatsBeEnabled = true;
 
 const minterInterface = new ethers.utils.Interface([

@@ -9,6 +9,10 @@ interface IERC20 {
   function transfer(address to, uint256 amount) external returns (bool);
 }
 
+interface ISFS {
+  function register(address _recipient) external returns (uint256 tokenId);
+}
+
 /// @title RevenueDistributor
 /// @author Tempe Techie
 /// @notice Automatically distribute revenue to multiple recipients
@@ -30,6 +34,14 @@ contract RevenueDistributor is OwnableWithManagers, ReentrancyGuard {
   event RecipientRemoveAll(address indexed remover_);
   event RecipientUpdate(address indexed updater_, address indexed recipient_, address newAddr_, string label_, uint256 percentage_);
   event WithdrawEth(address indexed owner_, uint256 amount_);
+
+  // CONSTRUCTOR
+  constructor(
+    address sfsAddress_,
+    address sfsNftHolder
+  ) {
+    ISFS(sfsAddress_).register(sfsNftHolder);
+  }
 
   // READ
 

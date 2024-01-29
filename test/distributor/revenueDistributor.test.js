@@ -40,11 +40,14 @@ describe("RevenueDistributor", function () {
 
   beforeEach(async function () {
     [
-      owner, user1, user2, recipient1, recipient2, recipient3, recipient4, recipient5, recipient6
+      owner, user1, user2, recipient1, recipient2, recipient3, recipient4, recipient5, recipient6, feeReceiver
     ] = await ethers.getSigners();
 
+    const MockSFS = await ethers.getContractFactory("MockSFS");
+    const sfsContract = await MockSFS.deploy();
+
     const RevenueDistributor = await ethers.getContractFactory("RevenueDistributor");
-    distributorContract = await RevenueDistributor.deploy();
+    distributorContract = await RevenueDistributor.deploy(sfsContract.address, feeReceiver.address);
     await distributorContract.deployed();
 
     // add recipients
