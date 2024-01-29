@@ -3,9 +3,17 @@
 
 const contractName = "FriendKeys";
 
-const tldAddress = "0x4087fb91A1fBdef05761C02714335D232a2Bf3a1";
-const feeReceiver = "0x6771F33Cfd8C6FC0A1766331f715f5d2E1d4E0e2"; // distributor contract address
-const statsAddress = "0x3Fa0EaC3058828Cc4BA97F51A33597C695bF6F9e"; // stats middleware contract address
+const tldAddress = "";
+const feeReceiver = ""; // distributor contract address
+const statsAddress = ""; // stats middleware contract address
+
+const sfsAddress = (network.name == "modeTestnet") ? "0xBBd707815a7F7eb6897C7686274AFabd7B579Ff6" : "0x8680CEaBcb9b56913c519c069Add6Bc3494B7020";
+const sfsNftTokenId = 0; // TODO: Enter SFS NFT token ID!!!
+
+if (sfsNftTokenId == 0) {
+  console.log("Please enter SFS NFT token ID!!!");
+  return;
+}
 
 const protocolFeePercent = ethers.utils.parseEther("0.05"); // 1 is 100%
 const domainHolderFeePercent = ethers.utils.parseEther("0.05"); // 1 is 100%
@@ -23,6 +31,8 @@ async function main() {
     tldAddress, 
     feeReceiver,
     statsAddress,
+    sfsAddress,
+    sfsNftTokenId,
     protocolFeePercent,
     domainHolderFeePercent,
     ratio
@@ -41,7 +51,7 @@ async function main() {
   console.log("Done!");
 
   console.log("Wait a minute and then run this command to verify contracts on block explorer:");
-  console.log("npx hardhat verify --network " + network.name + " " + instance.address + " " + tldAddress + " " + feeReceiver + " " + statsAddress + ' "' + protocolFeePercent + '" "' + domainHolderFeePercent + '" "' + ratio + '"');
+  console.log("npx hardhat verify --network " + network.name + " " + instance.address + " " + tldAddress + " " + feeReceiver + " " + statsAddress + " " + sfsAddress + ' "' + sfsNftTokenId + '" "' + protocolFeePercent + '" "' + domainHolderFeePercent + '" "' + ratio + '"');
 }
 
 main()

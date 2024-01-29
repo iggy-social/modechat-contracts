@@ -5,6 +5,8 @@ const contractName = "RevenueDistributor";
 const recipients = [];
 const managers = [];
 
+const sfsAddress = (network.name == "modeTestnet") ? "0xBBd707815a7F7eb6897C7686274AFabd7B579Ff6" : "0x8680CEaBcb9b56913c519c069Add6Bc3494B7020";
+
 /*
 // recipients receive a percentage of the revenue that comes to the contract
 const recipients = [
@@ -25,7 +27,7 @@ async function main() {
 
   // deploy contract
   const contract = await ethers.getContractFactory(contractName);
-  const instance = await contract.deploy();
+  const instance = await contract.deploy(sfsAddress, deployer.address);
   await instance.deployed();
   
   console.log(contractName + " contract address:", instance.address);
@@ -47,7 +49,7 @@ async function main() {
   }
 
   console.log("Wait a minute and then run this command to verify contracts on block explorer:");
-  console.log("npx hardhat verify --network " + network.name + " " + instance.address);
+  console.log("npx hardhat verify --network " + network.name + " " + instance.address + " " + sfsAddress + " " + deployer.address);
 }
 
 main()

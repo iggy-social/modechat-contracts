@@ -20,6 +20,7 @@ function calculateGasCosts(testName, receipt) {
 
 describe("Activity Points", function () {
   let activityPointsContract;
+  let feeReceiver;
   let statsContract;
 
   const multiplier = 100;

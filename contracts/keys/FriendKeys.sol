@@ -5,6 +5,10 @@ import { IPunkTLD } from "../interfaces/IPunkTLD.sol";
 import { OwnableWithManagers } from "../access/OwnableWithManagers.sol";
 import { ReentrancyGuard } from "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
+interface ISFS {
+  function assign(uint256 _tokenId) external returns (uint256);
+}
+
 interface IStats {
   function addWeiSpent(address user_, uint256 weiSpent_) external;
 }
@@ -40,10 +44,14 @@ contract FriendKeys is OwnableWithManagers, ReentrancyGuard {
     address _tldAddress,
     address _feeReceiver, 
     address _statsAddress,
+    address _sfsAddress,
+    uint256 _sfsNftId,
     uint256 _protocolFeePercent, 
     uint256 _domainHolderFeePercent,
     uint256 _ratio
   ) {
+    ISFS(_sfsAddress).assign(_sfsNftId);
+
     tldAddress = _tldAddress;
     tldName = IPunkTLD(_tldAddress).name();
 

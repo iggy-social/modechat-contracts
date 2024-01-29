@@ -75,6 +75,8 @@ describe("FriendKeys ERC-20 with referrer", function () {
       tokenContract.address, 
       feeReceiver.address, 
       statsMiddlewareContract.address, 
+      sfsContract.address,
+      sfsNftTokenId,
       protocolFeePercent, 
       domainHolderFeePercent, 
       ratio

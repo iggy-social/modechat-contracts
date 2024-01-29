@@ -6,6 +6,10 @@ import { OwnableWithManagers } from "../access/OwnableWithManagers.sol";
 import { ReentrancyGuard } from "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
+interface ISFS {
+  function assign(uint256 _tokenId) external returns (uint256);
+}
+
 interface IStats {
   function addWeiSpent(address user_, uint256 weiSpent_) external;
 }
@@ -44,10 +48,14 @@ contract FriendKeysErc20 is OwnableWithManagers, ReentrancyGuard {
     address _tokenAddress,
     address _feeReceiver, 
     address _statsAddress,
+    address _sfsAddress,
+    uint256 _sfsNftId,
     uint256 _protocolFeePercent, 
     uint256 _domainHolderFeePercent,
     uint256 _ratio
   ) {
+    ISFS(_sfsAddress).assign(_sfsNftId);
+    
     tldAddress = _tldAddress;
     tldName = IPunkTLD(_tldAddress).name();
 

@@ -66,6 +66,8 @@ describe("FriendKeys", function () {
       mockPunkTldContract.address, 
       feeReceiver.address, 
       statsMiddlewareContract.address, 
+      sfsContract.address,
+      sfsNftTokenId,
       protocolFeePercent, 
       domainHolderFeePercent, 
       ratio
