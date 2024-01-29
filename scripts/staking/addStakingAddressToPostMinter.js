@@ -1,4 +1,4 @@
-// npx hardhat run scripts/staking/addStakingAddressToPostMinter.js --network songbird
+// npx hardhat run scripts/staking/addStakingAddressToPostMinter.js --network modeTestnet
 
 const stakingContractAddress = "0xCA9749778327CD67700d3a777731a712330beB9A"; // staking contract address
 const postMinterAddress = "0xeC5Af9F794B9f26bB62Cd951088445c95EAF428D"; // post minter contract address

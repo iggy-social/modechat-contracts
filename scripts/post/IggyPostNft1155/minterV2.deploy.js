@@ -1,5 +1,5 @@
 // Deploy minter V2 contract
-// npx hardhat run scripts/post/IggyPostNft1155/minterV2.deploy.js --network polygonMumbai
+// npx hardhat run scripts/post/IggyPostNft1155/minterV2.deploy.js --network modeTestnet
 // It will automatically set different fees (if needed).
 // It will also automatically add the minter to the ChatTokenMinter contract and change the minter address in the post contract.
 // If any of these actions fail, you must do them manually.

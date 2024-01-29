@@ -1,4 +1,4 @@
-// npx hardhat run scripts/token/ChatTokenClaimActivityPoints/chatTokenClaimActivityPoints.deploy.js --network polygonMumbai
+// npx hardhat run scripts/token/ChatTokenClaimActivityPoints/chatTokenClaimActivityPoints.deploy.js --network modeTestnet
 // This script deploys the ChatTokenClaimActivityPoints contract and sets it as a minter in the ChatTokenMinter contract.
 // If setting the minter address fails, do it manually by calling the addMinter function in the ChatTokenMinter contract.
 

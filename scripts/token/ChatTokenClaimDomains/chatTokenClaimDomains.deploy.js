@@ -1,11 +1,11 @@
-// npx hardhat run scripts/token/ChatTokenClaimDomains/chatTokenClaimDomains.deploy.js --network songbird
+// npx hardhat run scripts/token/ChatTokenClaimDomains/chatTokenClaimDomains.deploy.js --network modeTestnet
 // This script deploys the ChatTokenClaimDomains contract and sets it as a minter in the ChatTokenMinter contract.
 // If setting the minter address fails, do it manually by calling the addMinter function in the ChatTokenMinter contract.
 
 const contractName = "ChatTokenClaimDomains";
 
-const chatTokenMinterAddress = "0x31CfDF366dd9753b8443B6fc3c59598415697131"; // TODO: Update this address
-const tldAddress = "0xBDACF94dDCAB51c39c2dD50BffEe60Bb8021949a"; // TODO: Update this address
+const chatTokenMinterAddress = ""; // TODO: Update this address
+const tldAddress = ""; // TODO: Update this address
 const chatReward = ethers.utils.parseEther("1337"); // TODO: 1 domain = 1337 CHAT tokens
 const maxIdEligible = 1520; // TODO: The first X number of domains (by ID) are eligible for claiming
 

@@ -1,4 +1,4 @@
-// npx hardhat run scripts/post/IggyPostNft1155/calls.js --network songbird
+// npx hardhat run scripts/post/IggyPostNft1155/calls.js --network modeTestnet
 
 const postAddress = "0xE33F27496A9cE75313f6d1FA2BA95657Fc904387";
 const minterAddress = "0x9e9905FA405A5FC7Ee2DEB94CbAc089B4FE6f0Ef";

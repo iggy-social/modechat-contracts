@@ -1,4 +1,4 @@
-// npx hardhat run scripts/token/ChatTokenMinter/chatTokenMinter.deploy.js --network songbird
+// npx hardhat run scripts/token/ChatTokenMinter/chatTokenMinter.deploy.js --network modeTestnet
 // This script deploys the ChatTokenMinter contract and sets it as the minter in the ChatToken contract.
 // If setting the minter address fails, do it manually by calling the setMinter function in the ChatToken contract.
 

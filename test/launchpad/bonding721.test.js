@@ -80,6 +80,8 @@ describe("IggyLaunchpad721Bonding", function () {
       feeReceiver.address,
       directoryContract.address,
       statsMiddlewareContract.address,
+      sfsContract.address,
+      sfsNftTokenId,
       feePercent,
       priceLaunch
     );
@@ -132,6 +134,18 @@ describe("IggyLaunchpad721Bonding", function () {
     // create NFT contract instance
     const Nft721Bonding = await ethers.getContractFactory("Nft721Bonding");
     const nftContract = await Nft721Bonding.attach(nftContractAddress);
+
+    // get metadata contract address from NFT contract
+    const metadataContractAddress = await nftContract.metadataAddress();
+    expect(metadataContractAddress).to.equal(metadataContract.address);
+
+    // get factory contract address from NFT contract
+    const factoryContractAddress = await nftContract.factoryAddress();
+    expect(factoryContractAddress).to.equal(launchpadContract.address);
+
+    // get mintingFeeReceiver from NFT contract
+    const mintingFeeReceiver = await nftContract.mintingFeeReceiver();
+    expect(mintingFeeReceiver).to.equal(feeReceiver.address);
 
     console.log("-- Mint NFTs #1 & #2 --");
 

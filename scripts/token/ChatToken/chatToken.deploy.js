@@ -1,4 +1,4 @@
-// npx hardhat run scripts/token/ChatToken/chatToken.deploy.js --network songbird
+// npx hardhat run scripts/token/ChatToken/chatToken.deploy.js --network modeTestnet
 
 const contractName = "ChatToken";
 

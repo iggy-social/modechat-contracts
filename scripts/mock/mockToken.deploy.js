@@ -1,4 +1,4 @@
-// npx hardhat run scripts/mock/mockToken.deploy.js --network polygonMumbai
+// npx hardhat run scripts/mock/mockToken.deploy.js --network modeTestnet
 
 const contractName = "MockErc20TokenDecimals";
 

@@ -1,4 +1,4 @@
-// npx hardhat run scripts/distributor/distributor.deploy.js --network bsc
+// npx hardhat run scripts/distributor/distributor.deploy.js --network modeTestnet
 
 const contractName = "RevenueDistributor";
 

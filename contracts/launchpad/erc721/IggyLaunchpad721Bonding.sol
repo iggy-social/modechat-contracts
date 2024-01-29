@@ -24,6 +24,10 @@ interface INftMetadata {
   function setName(address nftAddress_, string memory name_) external;
 }
 
+interface ISFSF {
+  function assign(uint256 _tokenId) external returns (uint256);
+}
+
 interface IStatsContract {
   function addWeiSpent(address user_, uint256 weiSpent_) external;
   function addWriterByWriter(address writer_) external;
@@ -37,6 +41,7 @@ contract IggyLaunchpad721Bonding is OwnableWithManagers, ReentrancyGuard {
   address public metadataAddress;
   address public mintingFeeReceiver; // the address that receives the ETH paid for launching a new NFT contract & minting fees from NFT contracts
   address public nftDirectoryAddress;
+  address public sfsAddress;
   address public statsAddress; // usually the stats middleware address
 
   bool public paused = false; // pause launching collections through the factory contract
@@ -55,9 +60,14 @@ contract IggyLaunchpad721Bonding is OwnableWithManagers, ReentrancyGuard {
     address _mintingFeeReceiver,
     address _nftDirectoryAddress,
     address _statsAddress,
+    address _sfsAddress,
+    uint256 _sfsNftId,
     uint256 _mintingFeePercentage,
     uint256 _price
   ) {
+    ISFSF(_sfsAddress).assign(_sfsNftId);
+    sfsAddress = _sfsAddress;
+
     metadataAddress = _metadataAddress;
     mintingFeeReceiver = _mintingFeeReceiver;
     nftDirectoryAddress = _nftDirectoryAddress;
@@ -145,7 +155,10 @@ contract IggyLaunchpad721Bonding is OwnableWithManagers, ReentrancyGuard {
     // create new NFT contract
     bytes32 saltedHash = keccak256(abi.encodePacked(msg.sender, block.timestamp, uniqueId_));
     Nft721Bonding nftContract = new Nft721Bonding{salt: saltedHash}(
-      address(this), metadataAddress, mintingFeeReceiver, name_, symbol_, mintingFeePercentage, ratio
+      contractOwner_,
+      name_, 
+      symbol_, 
+      ratio
     );
 
     // update nftAddressById mapping and allNftContracts array
@@ -209,6 +222,11 @@ contract IggyLaunchpad721Bonding is OwnableWithManagers, ReentrancyGuard {
   /// @notice Set referral fee percentage in wei (1 ether is 100%)
   function setReferralFeePercentage(uint256 _referralFeePercentage) external onlyManagerOrOwner {
     referralFeePercentage = _referralFeePercentage;
+  }
+
+  /// @notice Set SFS address (only owner)
+  function setSfsAddress(address _sfsAddress) external onlyOwner {
+    sfsAddress = _sfsAddress;
   }
 
   /// @notice Set stats contract address

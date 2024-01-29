@@ -1,4 +1,4 @@
-// npx hardhat run scripts/stats/calls.js --network zkfair
+// npx hardhat run scripts/stats/calls.js --network modeTestnet
 
 const statsMiddlewareAddress = "0x3Fa0EaC3058828Cc4BA97F51A33597C695bF6F9e";
 

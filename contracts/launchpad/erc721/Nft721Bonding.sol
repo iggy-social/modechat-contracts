@@ -6,13 +6,21 @@ import { OwnableWithManagers } from "../../access/OwnableWithManagers.sol";
 import { ReentrancyGuard } from "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
 interface IFactory {
+  function metadataAddress() external view returns (address);
+  function mintingFeePercentage() external view returns (uint256);
+  function mintingFeeReceiver() external view returns (address);
   function owner() external view returns (address);
+  function sfsAddress() external view returns (address);
   function statsAddress() external view returns (address);
 }
 
 interface INftMd {
   function getCollectionPreviewImage(address nftAddress_) external view returns (string memory);
   function getMetadata(address nftAddress_, uint256 tokenId_) external view returns (string memory);
+}
+
+interface ISFS {
+  function register(address _recipient) external returns (uint256 tokenId);
 }
 
 interface IStats {
@@ -37,19 +45,18 @@ contract Nft721Bonding is ERC721, ERC721Enumerable, OwnableWithManagers, Reentra
 
   // CONSTRUCTOR
   constructor(
-    address factoryAddress_,
-    address metadataAddress_,
-    address mintingFeeReceiver_,
+    address sfsNftOwner,
     string memory name_,
     string memory symbol_,
-    uint256 mintingFeePercentage_,
     uint256 ratio_
   ) ERC721(name_, symbol_) {
-    factoryAddress = factoryAddress_;
-    metadataAddress = metadataAddress_;
-    mintingFeeReceiver = mintingFeeReceiver_;
+    ISFS(IFactory(msg.sender).sfsAddress()).register(sfsNftOwner); // register the contract creator in the SFS contract
+
+    factoryAddress = msg.sender;
+    metadataAddress = IFactory(msg.sender).metadataAddress();
+    mintingFeeReceiver = IFactory(msg.sender).mintingFeeReceiver();
     
-    mintingFeePercentage = mintingFeePercentage_;
+    mintingFeePercentage = IFactory(msg.sender).mintingFeePercentage();
     ratio = ratio_;
     createdAt = block.timestamp;
   }

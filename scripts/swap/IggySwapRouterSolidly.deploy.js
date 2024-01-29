@@ -1,4 +1,4 @@
-// npx hardhat run scripts/swap/IggySwapRouterSolidly.deploy.js --network base
+// npx hardhat run scripts/swap/IggySwapRouterSolidly.deploy.js --network modeTestnet
 
 const contractName = "IggySwapRouterSolidly";
 

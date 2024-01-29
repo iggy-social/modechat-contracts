@@ -1,5 +1,5 @@
 // script to select 10 random winners from a list of NFT holders and creators
-// npx hardhat run scripts/launchpad/erc721/other/nftRaffle.js --network scroll
+// npx hardhat run scripts/launchpad/erc721/other/nftRaffle.js --network modeTestnet
 
 const { ethers } = require("hardhat");
 

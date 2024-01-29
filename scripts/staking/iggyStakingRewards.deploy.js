@@ -1,4 +1,4 @@
-// npx hardhat run scripts/staking/iggyStakingRewards.deploy.js --network polygonMumbai
+// npx hardhat run scripts/staking/iggyStakingRewards.deploy.js --network modeTestnet
 const contractName = "IggyStakingRewards";
 
 const assetAddress = "0xF874f79eBfB8FEe898a289C4cAa5dc4383873431"; // token to stake

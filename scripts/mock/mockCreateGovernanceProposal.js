@@ -1,4 +1,4 @@
-// npx hardhat run scripts/mock/mockCreateGovernanceProposal.js --network flareCoston
+// npx hardhat run scripts/mock/mockCreateGovernanceProposal.js --network modeTestnet
 
 const tokenAddress = "0x633Ae857445cF0cd02B21C6a3033C7CE74fB32c2"; // governance token contract address
 const governorAddress = "0x06A7Ab7Bb68b0ad6eB7688C5781E60BE6AFc658d"; // governor contract address

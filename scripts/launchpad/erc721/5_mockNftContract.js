@@ -4,13 +4,15 @@
 
 const contractName = "Nft721Bonding";
 
-const factoryAddress = "0x3Fa0EaC3058828Cc4BA97F51A33597C695bF6F9e";
-const metadataAddress = "0xc486B08Ed47fFe5c1b4b1A2ff5c671EA0083D9bA";
-const mintingFeeReceiver = "0xb29050965a5ac70ab487aa47546cdcbc97dae45d";
+const factoryAddress = "";
+const metadataAddress = "";
+const mintingFeeReceiver = "";
 const cName = "Test collection";
 const cSymbol = "TEST";
 const mintingFeePercentage = ethers.utils.parseEther("0.02");
-const ratio = ethers.utils.parseEther("4200");
+const ratio = ethers.utils.parseEther("1");
+
+const sfsAddress = (network.name == "modeTestnet") ? "0xBBd707815a7F7eb6897C7686274AFabd7B579Ff6" : "0x8680CEaBcb9b56913c519c069Add6Bc3494B7020";
 
 async function main() {
   const [deployer] = await ethers.getSigners();
@@ -21,12 +23,9 @@ async function main() {
   // deploy contract
   const contract = await ethers.getContractFactory(contractName);
   const instance = await contract.deploy(
-    factoryAddress,
-    metadataAddress,
-    mintingFeeReceiver,
+    deployer.address,
     cName,
     cSymbol,
-    mintingFeePercentage,
     ratio
   );
   await instance.deployed();
@@ -34,7 +33,7 @@ async function main() {
   console.log(contractName + " contract address:", instance.address);
 
   console.log("Wait a minute and then run this command to verify contracts on block explorer:");
-  console.log("npx hardhat verify --network " + network.name + " " + instance.address + " " + factoryAddress + " " + metadataAddress + " " + mintingFeeReceiver + ' "' + cName + '" "' + cSymbol + '" "' + mintingFeePercentage + '" "' + ratio + '"');
+  console.log("npx hardhat verify --network " + network.name + " " + instance.address + " " + " " + deployer.address + ' "' + cName + '" "' + cSymbol + '" "' + ratio + '"');
 }
 
 main()
