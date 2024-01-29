@@ -1,13 +1,21 @@
 // npx hardhat run scripts/staking/iggyStakingRewards.deploy.js --network modeTestnet
 const contractName = "IggyStakingRewards";
 
-const assetAddress = "0xF874f79eBfB8FEe898a289C4cAa5dc4383873431"; // token to stake
-const wethAddress = "0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889"; // wrapped native coin (WETH, WSGB, WBNB, etc.)
-const tokenName = "Iggy Governance Token";
-const symbol = "IGT";
-const claimRewardsMinimum = ethers.utils.parseEther("0.001"); // 10 SGB/ETH minimum total reward for a given week (if not met, rewards are rolled over to the next week)
-const minDeposit = ethers.utils.parseEther("0.001"); // 0.001 LP tokens minimum deposit to stake
+const assetAddress = ""; // token to stake
+const wethAddress = ""; // wrapped native coin (WETH)
+const tokenName = "ModeChat Governance Token";
+const symbol = "MCG";
+const claimRewardsMinimum = ethers.utils.parseEther("0.001"); // minimum total reward for a given week (if not met, rewards are rolled over to the next week)
+const minDeposit = 1; // 1 wei LP tokens minimum deposit to stake
 const periodLength = 604800; // 7 days
+
+const sfsAddress = (network.name == "modeTestnet") ? "0xBBd707815a7F7eb6897C7686274AFabd7B579Ff6" : "0x8680CEaBcb9b56913c519c069Add6Bc3494B7020";
+const sfsNftTokenId = 0; // TODO: Enter SFS NFT token ID!!!
+
+if (sfsNftTokenId == 0) {
+  console.log("Please enter SFS NFT token ID!!!");
+  return;
+}
 
 async function main() {
   const [deployer] = await ethers.getSigners();
@@ -18,13 +26,21 @@ async function main() {
   // deploy contract
   const contract = await ethers.getContractFactory(contractName);
   const instance = await contract.deploy(
-    assetAddress, wethAddress, tokenName, symbol, claimRewardsMinimum, minDeposit, periodLength
+    assetAddress, 
+    wethAddress, 
+    tokenName, 
+    symbol, 
+    claimRewardsMinimum, 
+    minDeposit, 
+    periodLength,
+    sfsAddress,
+    sfsNftTokenId
   );
   
   console.log(contractName + " contract address:", instance.address);
 
   console.log("Wait a minute and then run this command to verify contracts on block explorer:");
-  console.log("npx hardhat verify --network " + network.name + " " + instance.address + " " + assetAddress + " " + wethAddress + ' "' + tokenName + '" "' + symbol + '" "' + claimRewardsMinimum + '" "' + minDeposit + '" "' + periodLength + '"');
+  console.log("npx hardhat verify --network " + network.name + " " + instance.address + " " + assetAddress + " " + wethAddress + ' "' + tokenName + '" "' + symbol + '" "' + claimRewardsMinimum + '" "' + minDeposit + '" "' + periodLength + '" ' + sfsAddress + ' "' + sfsNftTokenId + '"');
 }
 
 main()

@@ -2,15 +2,23 @@
 
 const contractName = "IggySwapRouter";
 
-const iggyAddress = "0x6771F33Cfd8C6FC0A1766331f715f5d2E1d4E0e2"; // mandatory
-const routerAddress = "0xE4f7776c753aF46D2aa23e3348d17548C86DC47D"; // mandatory
+const iggyAddress = ""; // mandatory
+const routerAddress = ""; // mandatory
 const frontendAddress = ethers.constants.AddressZero; // optional
 const stakingAddress = ethers.constants.AddressZero; // optional
-const statsAddress = ethers.constants.AddressZero; // stats middleware address (optional)
+const statsAddress = ""; // stats middleware address (optional)
 
 const swapFee = 80; // 0.8%
 const stakingShare = 4000; // bps
 const frontendShare = 4000; // bps
+
+const sfsAddress = (network.name == "modeTestnet") ? "0xBBd707815a7F7eb6897C7686274AFabd7B579Ff6" : "0x8680CEaBcb9b56913c519c069Add6Bc3494B7020";
+const sfsNftTokenId = 0; // TODO: Enter SFS NFT token ID!!!
+
+if (sfsNftTokenId == 0) {
+  console.log("Please enter SFS NFT token ID!!!");
+  return;
+}
 
 async function main() {
   const [deployer] = await ethers.getSigners();
@@ -26,6 +34,8 @@ async function main() {
     routerAddress,
     stakingAddress,
     statsAddress,
+    sfsAddress,
+    sfsNftTokenId,
     swapFee,
     stakingShare,
     frontendShare
@@ -48,7 +58,7 @@ async function main() {
   console.log("Wait a minute and then run this command to verify contracts on block explorer:");
   console.log(
     "npx hardhat verify --network " + network.name + " " + instance.address + " " + frontendAddress + " " + 
-    iggyAddress + " " + routerAddress + " " + stakingAddress + " " + statsAddress + ' "' + swapFee + '" "' + stakingShare + '" "' + frontendShare + '"'
+    iggyAddress + " " + routerAddress + " " + stakingAddress + " " + statsAddress + " " + sfsAddress + ' "' + sfsNftTokenId + '" "' + swapFee + '" "' + stakingShare + '" "' + frontendShare + '"'
   );
 }
 

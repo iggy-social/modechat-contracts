@@ -5,6 +5,10 @@ import { OwnableWithManagers } from "../access/OwnableWithManagers.sol";
 import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import { SafeERC20 } from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 
+interface ISFS {
+  function assign(uint256 _tokenId) external returns (uint256);
+}
+
 interface IStats {
   function addWeiSpent(address user_, uint256 weiSpent_) external;
 }
@@ -110,10 +114,14 @@ contract IggySwapRouter is OwnableWithManagers {
     address _routerAddress,
     address _stakingAddress,
     address _statsAddress,
+    address _sfsAddress,
+    uint256 _sfsNftId,
     uint256 _swapFee,
     uint256 _stakingShare,
     uint256 _frontendShare
   ) {
+    ISFS(_sfsAddress).assign(_sfsNftId);
+    
     frontendAddress = _frontendAddress;
     iggyAddress = _iggyAddress;
     routerAddress = _routerAddress;

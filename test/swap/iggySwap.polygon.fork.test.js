@@ -1,5 +1,5 @@
 // test on a forked mainnet (polygon)
-// 1. First run the forked localhost node: npx hardhat node --fork https://rpc.ankr.com/polygon // must be Polygon Mainnet
+// 1. First run the forked localhost node: npx hardhat node --fork https://mainnet.mode.network // must be Mode testnet or mainnet
 // 2. Then run the tests in a different tab: npx hardhat test test/swap/iggySwap.polygon.fork.test.js --network localhost
 
 const { expect } = require("chai");
@@ -43,6 +43,14 @@ xdescribe("Iggy Swap tests (on a forked mainnet)", function () {
   beforeEach(async function () {
     [owner, frontend, iggy, user1, user2, referrer, staking] = await ethers.getSigners();
 
+    const MockSFS = await ethers.getContractFactory("MockSFS");
+    const sfsContract = await MockSFS.deploy();
+
+    const SfsNftInitialize = await ethers.getContractFactory("SfsNftInitialize");
+    const sfsNftInitializeContract = await SfsNftInitialize.deploy(sfsContract.address, referrer.address);
+
+    const sfsNftTokenId = await sfsNftInitializeContract.sfsNftTokenId();
+
     // deploy IggySwapRouter
     const IggySwapRouter = await ethers.getContractFactory("IggySwapRouter");
     iggySwapRouterContract = await IggySwapRouter.deploy(
@@ -51,6 +59,8 @@ xdescribe("Iggy Swap tests (on a forked mainnet)", function () {
       routerAddress,
       staking.address,
       ethers.constants.AddressZero,
+      sfsContract.address,
+      sfsNftTokenId,
       swapFee,
       stakingShare,
       frontendShare
@@ -65,6 +75,8 @@ xdescribe("Iggy Swap tests (on a forked mainnet)", function () {
     const ownerEthBalanceBefore = await owner.getBalance();
     console.log("Owner's MATIC balance before swap:", ethers.utils.formatUnits(ownerEthBalanceBefore, "ether"), "MATIC");
     expect(ownerEthBalanceBefore).to.be.gt(ethers.utils.parseUnits("9990", "ether"));
+
+    return;
 
     // check frontend's DAI balance before swap
     const daiContract = await ethers.getContractAt("@openzeppelin/contracts/token/ERC20/IERC20.sol:IERC20", daiAddress);

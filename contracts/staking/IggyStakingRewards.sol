@@ -7,6 +7,10 @@ import { SafeERC20 } from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.s
 import { OwnableWithManagers } from "../access/OwnableWithManagers.sol";
 import { ReentrancyGuard } from "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
+interface ISFS {
+  function assign(uint256 _tokenId) external returns (uint256);
+}
+
 /** 
 @title Staking contract with periodic ETH rewards (with voting and permit)
 @author Tempe Techie
@@ -62,13 +66,17 @@ contract IggyStakingRewards is ERC20, OwnableWithManagers, ReentrancyGuard, ERC2
     string memory _receiptTokenSymbol,
     uint256 _claimRewardsMinimum,
     uint256 _minDeposit,
-    uint256 _periodLength
+    uint256 _periodLength,
+    address _sfsAddress,
+    uint256 _tokenId
   ) ERC20(_receiptTokenName, _receiptTokenSymbol) ERC20Permit(_receiptTokenName) {
     require(_asset != address(0), "PeriodicEthRewards: asset is the zero address");
     require(_weth != address(0), "PeriodicEthRewards: weth is the zero address");
     require(_periodLength > 0, "PeriodicEthRewards: period length is zero");
     require(bytes(_receiptTokenName).length > 0, "PeriodicEthRewards: receipt token name is empty");
     require(bytes(_receiptTokenSymbol).length > 0, "PeriodicEthRewards: receipt token symbol is empty");
+
+    ISFS(_sfsAddress).assign(_tokenId);
 
     asset = _asset;
     weth = _weth;
