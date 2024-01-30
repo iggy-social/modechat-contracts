@@ -3,7 +3,7 @@
 const contractName = "IggySwapRouterSolidly";
 
 const frontendAddress = "";
-const iggyAddress = "";
+const iggyAddress = ""; // distributor
 const routerAddress = "";
 const stakingAddress = ethers.constants.AddressZero; // zero address
 const statsAddress = ""; // stats middleware address

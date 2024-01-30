@@ -64,7 +64,7 @@ describe("FriendKeys ERC-20", function () {
 
     const StatsMiddleware = await ethers.getContractFactory("StatsMiddleware");
     statsMiddlewareContract = await StatsMiddleware.deploy(sfsContract.address, sfsNftTokenId, statsContract.address);
-    await statsMiddlewareContract.deployed(sfsContract.address, sfsNftTokenId);
+    await statsMiddlewareContract.deployed();
 
     await statsContract.setStatsWriterAddress(statsMiddlewareContract.address);
 

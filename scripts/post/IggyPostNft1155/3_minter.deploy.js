@@ -10,8 +10,8 @@ if (sfsNftTokenId == 0) {
   console.log("Please enter SFS NFT token ID!!!");
   return;
 }
-const daoAddress = "0x6771F33Cfd8C6FC0A1766331f715f5d2E1d4E0e2"; // distributor contract
-const devAddress = "0x6771F33Cfd8C6FC0A1766331f715f5d2E1d4E0e2"; // iggy address
+const daoAddress = ""; // distributor contract
+const devAddress = ""; // iggy address
 const postAddress = "";
 
 const daoFee = 2000; // 10%

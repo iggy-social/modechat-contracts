@@ -4,7 +4,7 @@
 const contractName = "FriendKeys";
 
 const tldAddress = "";
-const feeReceiver = ""; // distributor contract address
+const feeReceiver = "0xf0b0D10BE9fb96D139090cfeD4124b74c4D2217B"; // distributor contract address
 const statsAddress = ""; // stats middleware contract address
 
 const sfsAddress = (network.name == "modeTestnet") ? "0xBBd707815a7F7eb6897C7686274AFabd7B579Ff6" : "0x8680CEaBcb9b56913c519c069Add6Bc3494B7020";

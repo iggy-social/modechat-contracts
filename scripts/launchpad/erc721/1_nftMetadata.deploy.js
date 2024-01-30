@@ -19,11 +19,9 @@ async function main() {
 
   // deploy contract
   const contract = await ethers.getContractFactory(contractName);
-  const instance = await contract.deploy();
-  await instance.deployed(
-    sfsAddress,
-    sfsNftTokenId
-  );
+  const instance = await contract.deploy(sfsAddress,
+    sfsNftTokenId);
+  await instance.deployed();
   
   console.log(contractName + " contract address:", instance.address);
 
