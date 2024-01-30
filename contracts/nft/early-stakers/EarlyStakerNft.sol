@@ -9,6 +9,10 @@ interface IEarlyStakerMetadata {
   function getMetadata(uint256 _tokenId) external view returns (string memory);
 }
 
+interface ISFS {
+  function assign(uint256 _tokenId) external returns (uint256);
+}
+
 /**
  * @title EarlyStakerNft
  * @author Tempe Techie
@@ -25,8 +29,11 @@ contract EarlyStakerNft is ERC5192, OwnableWithManagers {
   constructor (
     address _metadataAddress,
     string memory _name, 
-    string memory _symbol
+    string memory _symbol,
+    address _sfsAddress,
+    uint256 _sfsNftId
   ) ERC5192(_name, _symbol, true) {
+    ISFS(_sfsAddress).assign(_sfsNftId);
     metadataAddress = _metadataAddress;
   }
 

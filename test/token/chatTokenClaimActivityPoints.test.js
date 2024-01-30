@@ -47,12 +47,21 @@ describe("ChatTokenClaimActivityPoints", function () {
 
     // deploy ChatToken
     const ChatToken = await ethers.getContractFactory("ChatToken");
-    chatTokenContract = await ChatToken.deploy("Chat Token", "CHAT");
+    chatTokenContract = await ChatToken.deploy(
+      "Chat Token", 
+      "CHAT",
+      sfsContract.address, // SFS address
+      sfsNftTokenId // SFS NFT token ID
+    );
     await chatTokenContract.deployed();
 
     // deploy ChatTokenMinter
     const ChatTokenMinter = await ethers.getContractFactory("ChatTokenMinter");
-    chatTokenMinterContract = await ChatTokenMinter.deploy(chatTokenContract.address);
+    chatTokenMinterContract = await ChatTokenMinter.deploy(
+      chatTokenContract.address,
+      sfsContract.address, // SFS address
+      sfsNftTokenId // SFS NFT token ID
+    );
     await chatTokenMinterContract.deployed();
 
     // add minter to ChatToken
@@ -83,7 +92,9 @@ describe("ChatTokenClaimActivityPoints", function () {
     chatTokenClaimActivityPoints = await ChatTokenClaimActivityPoints.deploy(
       chatTokenMinterContract.address, // ChatTokenMinter address
       activityPointsContract.address, // IggyPostStats address
-      chatEthRatio // how many tokens per ETH spent will user get (1000 CHAT per ETH)
+      chatEthRatio, // how many tokens per ETH spent will user get (1000 CHAT per ETH)
+      sfsContract.address, // SFS address
+      sfsNftTokenId // SFS NFT token ID
     );
 
     // add ChatTokenClaimActivityPoints address as minter in ChatTokenMinter

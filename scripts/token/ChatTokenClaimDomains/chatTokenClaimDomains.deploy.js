@@ -9,6 +9,14 @@ const tldAddress = ""; // TODO: Update this address
 const chatReward = ethers.utils.parseEther("1337"); // TODO: 1 domain = 1337 CHAT tokens
 const maxIdEligible = 1520; // TODO: The first X number of domains (by ID) are eligible for claiming
 
+const sfsAddress = (network.name == "modeTestnet") ? "0xBBd707815a7F7eb6897C7686274AFabd7B579Ff6" : "0x8680CEaBcb9b56913c519c069Add6Bc3494B7020";
+const sfsNftTokenId = 0; // TODO: Enter SFS NFT token ID!!!
+
+if (sfsNftTokenId == 0) {
+  console.log("Please enter SFS NFT token ID!!!");
+  return;
+}
+
 async function main() {
   const [deployer] = await ethers.getSigners();
 
@@ -21,7 +29,9 @@ async function main() {
     chatTokenMinterAddress,
     tldAddress,
     chatReward,
-    maxIdEligible
+    maxIdEligible,
+    sfsAddress,
+    sfsNftTokenId
   );
 
   console.log(contractName + " contract address:", instance.address);
@@ -44,7 +54,7 @@ async function main() {
   console.log("Lastly, verify the Minter contract on block explorer");
 
   console.log("Wait a minute and then run this command to verify contract on block explorer:");
-  console.log("npx hardhat verify --network " + network.name + " " + instance.address + " " + chatTokenMinterAddress + " " + tldAddress + ' "' + chatReward + '" "' + maxIdEligible + '"');
+  console.log("npx hardhat verify --network " + network.name + " " + instance.address + " " + chatTokenMinterAddress + " " + tldAddress + ' "' + chatReward + '" "' + maxIdEligible + '" ' + sfsAddress + ' "' + sfsNftTokenId + '"');
 }
 
 main()

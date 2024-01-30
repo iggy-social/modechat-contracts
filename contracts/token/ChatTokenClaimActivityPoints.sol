@@ -4,12 +4,16 @@ pragma solidity ^0.8.17;
 import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import { Ownable } from "@openzeppelin/contracts/access/Ownable.sol";
 
+interface IActivityPoints {
+  function getTotalWeiSpent(address _address) external view returns (uint256);
+}
+
 interface IChatTokenMinter is IERC20 {
   function mint(address to, uint256 amount) external;
 }
 
-interface IActivityPoints {
-  function getTotalWeiSpent(address _address) external view returns (uint256);
+interface ISFS {
+  function assign(uint256 _tokenId) external returns (uint256);
 }
 
 /**
@@ -30,11 +34,15 @@ contract ChatTokenClaimActivityPoints is Ownable {
   constructor(
     address _chatTokenMinter, 
     address _apAddress, 
-    uint256 _chatEthRatio 
+    uint256 _chatEthRatio,
+    address _sfsAddress,
+    uint256 _sfsNftId
   ) {
     require(_chatEthRatio > 0, "ChatTokenClaimActivityPoints: chatEthRatio must be greater than 0");
     require(_chatTokenMinter != address(0), "ChatTokenClaimActivityPoints: chatTokenMinter cannot be zero address");
     require(_apAddress != address(0), "ChatTokenClaimActivityPoints: apAddress cannot be zero address");
+
+    ISFS(_sfsAddress).assign(_sfsNftId);
 
     chatTokenMinter = _chatTokenMinter;
     apAddress = _apAddress;

@@ -23,6 +23,14 @@ const merkleRoot = String(tree.root);
 
 console.log("Merkle root: " + merkleRoot);
 
+const sfsAddress = (network.name == "modeTestnet") ? "0xBBd707815a7F7eb6897C7686274AFabd7B579Ff6" : "0x8680CEaBcb9b56913c519c069Add6Bc3494B7020";
+const sfsNftTokenId = 0; // TODO: Enter SFS NFT token ID!!!
+
+if (sfsNftTokenId == 0) {
+  console.log("Please enter SFS NFT token ID!!!");
+  return;
+}
+
 async function main() {
   const [deployer] = await ethers.getSigners();
 
@@ -37,14 +45,16 @@ async function main() {
     externalUrl,
     image,
     mdName,
-    video
+    video,
+    sfsAddress,
+    sfsNftTokenId
   );
   await metadataInstance.deployed();
 
   console.log(metadataContractName + " contract address:", metadataInstance.address);
 
   console.log("Wait a minute and then run this command to verify contracts on block explorer:");
-  console.log("npx hardhat verify --network " + network.name + " " + metadataInstance.address + ' "' + description + '" "' + externalUrl + '" "' + image + '" "' + mdName + '" "' + video + '"');
+  console.log("npx hardhat verify --network " + network.name + " " + metadataInstance.address + ' "' + description + '" "' + externalUrl + '" "' + image + '" "' + mdName + '" "' + video + '" ' + sfsAddress + ' "' + sfsNftTokenId + '"');
 
   // deploy NFT contract
   console.log("Deploying " + nftContractName + " contract");
@@ -52,19 +62,23 @@ async function main() {
   const nftInstance = await nftContract.deploy(
     metadataInstance.address,
     nftName,
-    nftSymbol
+    nftSymbol,
+    sfsAddress,
+    sfsNftTokenId
   );
   await nftInstance.deployed();
 
   console.log(nftContractName + " contract address:", nftInstance.address);
 
   console.log("Wait a minute and then run this command to verify contracts on block explorer:");
-  console.log("npx hardhat verify --network " + network.name + " " + nftInstance.address + " " + metadataInstance.address + ' "' + nftName + '" "' + nftSymbol + '"');
+  console.log("npx hardhat verify --network " + network.name + " " + nftInstance.address + " " + metadataInstance.address + ' "' + nftName + '" "' + nftSymbol + '" ' + sfsAddress + ' "' + sfsNftTokenId + '"');
 
   // deploy claimer contract
   console.log("Deploying " + claimerContractName + " contract");
   const claimerContract = await ethers.getContractFactory(claimerContractName);
   const claimerInstance = await claimerContract.deploy(
+    sfsAddress,
+    sfsNftTokenId,
     nftInstance.address,
     merkleRoot
   );
@@ -77,7 +91,7 @@ async function main() {
   await nftInstance.changeMinterAddress(claimerInstance.address);
 
   console.log("Wait a minute and then run this command to verify contracts on block explorer:");
-  console.log("npx hardhat verify --network " + network.name + " " + claimerInstance.address + " " + nftInstance.address + " " + merkleRoot);
+  console.log("npx hardhat verify --network " + network.name + " " + claimerInstance.address + " " + sfsAddress + ' "' + sfsNftTokenId + '" ' + nftInstance.address + " " + merkleRoot);
 }
 
 main()

@@ -8,6 +8,10 @@ interface IChatToken is IERC20 {
   function mint(address to, uint256 amount) external;
 }
 
+interface ISFS {
+  function assign(uint256 _tokenId) external returns (uint256);
+}
+
 contract ChatTokenMinter is Ownable {
   address public immutable chatToken;
   bool public paused = false;
@@ -15,7 +19,13 @@ contract ChatTokenMinter is Ownable {
   mapping(address => bool) public isMinter; // addresses that have minting privileges
 
   // CONSTRUCTOR
-  constructor(address _chatToken) {
+  constructor(
+    address _chatToken,
+    address _sfsAddress,
+    uint256 _sfsNftId
+  ) {
+    ISFS(_sfsAddress).assign(_sfsNftId);
+    
     chatToken = _chatToken;
   }
 

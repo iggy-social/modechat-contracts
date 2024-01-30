@@ -4,13 +4,17 @@ pragma solidity ^0.8.17;
 import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import { Ownable } from "@openzeppelin/contracts/access/Ownable.sol";
 
+interface IBasePunkTLD {
+  function domains(string calldata _domainName) external view returns(string memory, uint256, address, string memory);
+  function getDomainHolder(string calldata _domainName) external view returns(address);
+}
+
 interface IChatTokenMinter is IERC20 {
   function mint(address to, uint256 amount) external;
 }
 
-interface IBasePunkTLD {
-  function domains(string calldata _domainName) external view returns(string memory, uint256, address, string memory);
-  function getDomainHolder(string calldata _domainName) external view returns(address);
+interface ISFS {
+  function assign(uint256 _tokenId) external returns (uint256);
 }
 
 /**
@@ -33,11 +37,15 @@ contract ChatTokenClaimDomains is Ownable {
     address _chatTokenMinter, 
     address _domainAddress, 
     uint256 _chatReward, 
-    uint256 _maxIdEligible
+    uint256 _maxIdEligible,
+    address _sfsAddress,
+    uint256 _sfsNftId
   ) {
     require(_chatReward > 0, "ChatTokenClaimDomains: chatReward must be greater than 0");
     require(_chatTokenMinter != address(0), "ChatTokenClaimDomains: chatTokenMinter cannot be zero address");
     require(_domainAddress != address(0), "ChatTokenClaimDomains: domain contract cannot be zero address");
+
+    ISFS(_sfsAddress).assign(_sfsNftId);
 
     chatTokenMinter = _chatTokenMinter;
     domainAddress = _domainAddress;

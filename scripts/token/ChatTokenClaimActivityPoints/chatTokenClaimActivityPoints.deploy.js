@@ -8,6 +8,14 @@ const chatTokenMinterAddress = "0x2C6A9F47a2B1BA7976ACd14CDd8f6f35d27C1e28"; // 
 const activityPointsAddress = "0x7d20A0E75B1ac519f500a51351bcb01A07fE3D7d"; // TODO
 const chatEthRatio = 1_000_000; // TODO: 1 ETH = 1,000 CHAT
 
+const sfsAddress = (network.name == "modeTestnet") ? "0xBBd707815a7F7eb6897C7686274AFabd7B579Ff6" : "0x8680CEaBcb9b56913c519c069Add6Bc3494B7020";
+const sfsNftTokenId = 0; // TODO: Enter SFS NFT token ID!!!
+
+if (sfsNftTokenId == 0) {
+  console.log("Please enter SFS NFT token ID!!!");
+  return;
+}
+
 async function main() {
   const [deployer] = await ethers.getSigners();
 
@@ -19,7 +27,9 @@ async function main() {
   const instance = await contract.deploy(
     chatTokenMinterAddress,
     activityPointsAddress,
-    chatEthRatio
+    chatEthRatio,
+    sfsAddress,
+    sfsNftTokenId
   );
 
   console.log(contractName + " contract address:", instance.address);
@@ -42,7 +52,7 @@ async function main() {
   console.log("Lastly, verify the Minter contract on block explorer");
 
   console.log("Wait a minute and then run this command to verify contract on block explorer:");
-  console.log("npx hardhat verify --network " + network.name + " " + instance.address + " " + chatTokenMinterAddress + " " + activityPointsAddress + ' "' + chatEthRatio + '"');
+  console.log("npx hardhat verify --network " + network.name + " " + instance.address + " " + chatTokenMinterAddress + " " + activityPointsAddress + ' "' + chatEthRatio + '" ' + sfsAddress + ' "' + sfsNftTokenId + '"');
 }
 
 main()

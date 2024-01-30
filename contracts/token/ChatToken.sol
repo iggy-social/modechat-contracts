@@ -5,11 +5,22 @@ import { ERC20, ERC20Burnable } from "@openzeppelin/contracts/token/ERC20/extens
 import { ERC20Permit } from "@openzeppelin/contracts/token/ERC20/extensions/ERC20Permit.sol";
 import { Ownable } from "@openzeppelin/contracts/access/Ownable.sol";
 
+interface ISFS {
+  function assign(uint256 _tokenId) external returns (uint256);
+}
+
 contract ChatToken is ERC20Burnable, Ownable, ERC20Permit {
   address public minter;
 
   // CONSTRUCTOR
-  constructor(string memory _name, string memory _symbol) ERC20(_name, _symbol) ERC20Permit(_name) {}
+  constructor(
+    string memory _name, 
+    string memory _symbol,
+    address _sfsAddress,
+    uint256 _sfsNftId
+  ) ERC20(_name, _symbol) ERC20Permit(_name) {
+    ISFS(_sfsAddress).assign(_sfsNftId);
+  }
 
   // EVENTS
   event MinterAddressChanged(address indexed _owner, address indexed _minter);

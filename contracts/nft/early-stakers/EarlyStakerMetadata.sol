@@ -4,6 +4,10 @@ pragma solidity ^0.8.17;
 import { OwnableWithManagers } from "../../access/OwnableWithManagers.sol";
 import { Base64 } from "@openzeppelin/contracts/utils/Base64.sol";
 
+interface ISFS {
+  function assign(uint256 _tokenId) external returns (uint256);
+}
+
 contract EarlyStakerMetadata is OwnableWithManagers {
   string public description;
   string public externalUrl;
@@ -17,8 +21,11 @@ contract EarlyStakerMetadata is OwnableWithManagers {
     string memory externalUrl_,
     string memory image_,
     string memory name_,
-    string memory video_
+    string memory video_,
+    address sfsAddress_,
+    uint256 sfsNftId_
   ) {
+    ISFS(sfsAddress_).assign(sfsNftId_);
     description = description_;
     externalUrl = externalUrl_;
     image = image_;

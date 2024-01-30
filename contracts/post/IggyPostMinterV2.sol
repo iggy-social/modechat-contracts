@@ -30,6 +30,10 @@ interface IIggyPostStats {
   function addMintedPostId(address _user, uint256 _postId) external;
 }
 
+interface ISFS {
+  function assign(uint256 _tokenId) external returns (uint256);
+}
+
 /**
 @title IggyPostMinterV2
 @notice This contract allows users to mint IggyPost NFTs and paying with ETH.
@@ -63,10 +67,14 @@ contract IggyPostMinterV2 is OwnableWithManagers, ReentrancyGuard {
     address _devFeeUpdaterAddress,
     address _postAddress,
     uint256 _chatEthRatio, // e.g. 1_000, which means 1 ETH (or payment token) = 1,000 CHAT
-    uint256 _chatRewardsDuration // CHAT rewards duration in seconds
+    uint256 _chatRewardsDuration, // CHAT rewards duration in seconds
+    address _sfsAddress,
+    uint256 _sfsNftId
   ) {
     require(_chatTokenMinterAddress != address(0), "IggyPostMinterV2: CHAT token cannot be zero address");
     require(_postAddress != address(0), "IggyPostMinterV2: Post address cannot be zero address");
+
+    ISFS(_sfsAddress).assign(_sfsNftId);
 
     chatTokenMinterAddress = _chatTokenMinterAddress;
     daoAddress = _daoAddress;

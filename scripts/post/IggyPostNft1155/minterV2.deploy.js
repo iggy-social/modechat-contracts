@@ -14,6 +14,14 @@ const postAddress = "0x63FE8216a66737CFE474DF3949F9081EbD4Bd800";
 const chatEthRatio = 10; // 1 ETH/SGB = 10 CHAT
 const chatRewardsDuration = 60 * 60 * 24 * 30 * 11; // 30 days * 12 months = 1 year
 
+const sfsAddress = (network.name == "modeTestnet") ? "0xBBd707815a7F7eb6897C7686274AFabd7B579Ff6" : "0x8680CEaBcb9b56913c519c069Add6Bc3494B7020";
+const sfsNftTokenId = 0; // TODO: Enter SFS NFT token ID!!!
+
+if (sfsNftTokenId == 0) {
+  console.log("Please enter SFS NFT token ID!!!");
+  return;
+}
+
 // stats contract
 const statsEnabled = false; // have it enabled by default so that users can see minted posts on their profile
 const statsAddress = "";
@@ -38,7 +46,9 @@ async function main() {
     devFeeUpdaterAddress,
     postAddress,
     chatEthRatio,
-    chatRewardsDuration
+    chatRewardsDuration,
+    sfsAddress,
+    sfsNftTokenId
   );
 
   console.log(contractName + " contract address:", instance.address);
@@ -124,7 +134,7 @@ async function main() {
   
   // verify contract
   console.log("Wait a minute and then run this command to verify contract on block explorer:");
-  console.log("npx hardhat verify --network " + network.name + " " + instance.address + " " + chatTokenMinterAddress + " " + daoAddress + " " + devAddress + " " + devFeeUpdaterAddress + " " + postAddress + ' "' + chatEthRatio + '" "' + chatRewardsDuration + '"');
+  console.log("npx hardhat verify --network " + network.name + " " + instance.address + " " + chatTokenMinterAddress + " " + daoAddress + " " + devAddress + " " + devFeeUpdaterAddress + " " + postAddress + ' "' + chatEthRatio + '" "' + chatRewardsDuration + '" ' + sfsAddress + ' "' + sfsNftTokenId + '"');
 }
 
 main()

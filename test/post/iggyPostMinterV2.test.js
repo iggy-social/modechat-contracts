@@ -91,12 +91,21 @@ describe("IggyPostMinterV2", function () {
 
     // deploy ChatToken
     const ChatToken = await ethers.getContractFactory("ChatToken");
-    chatTokenContract = await ChatToken.deploy("Chat Token", "CHAT");
+    chatTokenContract = await ChatToken.deploy(
+      "Chat Token", 
+      "CHAT",
+      sfsContract.address,
+      sfsNftTokenId
+    );
     await chatTokenContract.deployed();
 
     // deploy ChatTokenMinter
     const ChatTokenMinter = await ethers.getContractFactory("ChatTokenMinter");
-    chatTokenMinterContract = await ChatTokenMinter.deploy(chatTokenContract.address);
+    chatTokenMinterContract = await ChatTokenMinter.deploy(
+      chatTokenContract.address,
+      sfsContract.address,
+      sfsNftTokenId
+    );
     await chatTokenMinterContract.deployed();
 
     // add minter to ChatToken
@@ -111,7 +120,9 @@ describe("IggyPostMinterV2", function () {
       dev.address, // dev fee updater
       iggyPostContract.address, 
       chatEthRatio,
-      chatRewardsDuration
+      chatRewardsDuration,
+      sfsContract.address,
+      sfsNftTokenId
     );
     await minterContract.deployed();
 

@@ -28,6 +28,7 @@ describe("ChatTokenClaimDomains", function () {
   let user1;
   let user2;
   let user3;
+  let feeReceiver;
 
   const domain1 = "user1a";
   const domain2 = "user1b";
@@ -37,16 +38,33 @@ describe("ChatTokenClaimDomains", function () {
   const chatReward = ethers.utils.parseEther("1337");
 
   beforeEach(async function () {
-    [owner, user1, user2, user3] = await ethers.getSigners();
+    [owner, user1, user2, user3, feeReceiver] = await ethers.getSigners();
+
+    const MockSFS = await ethers.getContractFactory("MockSFS");
+    const sfsContract = await MockSFS.deploy();
+
+    const SfsNftInitialize = await ethers.getContractFactory("SfsNftInitialize");
+    const sfsNftInitializeContract = await SfsNftInitialize.deploy(sfsContract.address, feeReceiver.address);
+
+    const sfsNftTokenId = await sfsNftInitializeContract.sfsNftTokenId();
 
     // deploy ChatToken
     const ChatToken = await ethers.getContractFactory("ChatToken");
-    chatTokenContract = await ChatToken.deploy("Chat Token", "CHAT");
+    chatTokenContract = await ChatToken.deploy(
+      "Chat Token", 
+      "CHAT",
+      sfsContract.address, // SFS address
+      sfsNftTokenId // SFS NFT token ID
+    );
     await chatTokenContract.deployed();
 
     // deploy ChatTokenMinter
     const ChatTokenMinter = await ethers.getContractFactory("ChatTokenMinter");
-    chatTokenMinterContract = await ChatTokenMinter.deploy(chatTokenContract.address);
+    chatTokenMinterContract = await ChatTokenMinter.deploy(
+      chatTokenContract.address,
+      sfsContract.address, // SFS address
+      sfsNftTokenId // SFS NFT token ID
+    );
     await chatTokenMinterContract.deployed();
 
     // add minter to ChatToken
@@ -63,7 +81,9 @@ describe("ChatTokenClaimDomains", function () {
       chatTokenMinterContract.address, // ChatTokenMinter address
       mockPunkTldContract.address, // TLD address
       chatReward, // chat rewards per domain
-      100 // max domain NFT ID eligible for airdrop (aka snapshot)
+      100, // max domain NFT ID eligible for airdrop (aka snapshot)
+      sfsContract.address, // SFS address
+      sfsNftTokenId // SFS NFT token ID
     );
 
     // add ChatTokenClaimDomains address as minter in ChatTokenMinter
