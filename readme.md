@@ -1,6 +1,6 @@
-# Iggy Social smart contracts
+# ModeChat smart contracts
 
-Smart contracts that enable and enhance the web3 social experience.
+Smart contracts that enable and enhance the web3 social experience on [ModeChat](https://modechat.xyz).
 
 See the instructions below to run the code on localhost and for blockchain deployment.
 
@@ -122,7 +122,3 @@ Docs: https://github.com/crytic/slither
 
 Run `npx hardhat clean` and then `npx hardhat compile`.
 
-## Frontends
-
-- Development preview: https://iggy-social-frontend.vercel.app/
-- Landing page: https://iggy.social
