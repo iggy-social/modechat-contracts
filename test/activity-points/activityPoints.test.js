@@ -50,7 +50,6 @@ describe("Activity Points", function () {
     activityPointsContract = await ActivityPoints.deploy(
       statsContract.address,
       ethers.constants.AddressZero,
-      ethers.constants.AddressZero,
       multiplier,
       sfsContract.address,
       sfsNftTokenId

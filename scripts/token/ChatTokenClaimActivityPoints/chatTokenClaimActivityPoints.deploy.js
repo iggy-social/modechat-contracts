@@ -1,4 +1,4 @@
-// npx hardhat run scripts/token/ChatTokenClaimActivityPoints/chatTokenClaimActivityPoints.deploy.js --network modeTestnet
+// npx hardhat run scripts/token/ChatTokenClaimActivityPoints/chatTokenClaimActivityPoints.deploy.js --network modeMainnet
 // This script deploys the ChatTokenClaimActivityPoints contract and sets it as a minter in the ChatTokenMinter contract.
 // If setting the minter address fails, do it manually by calling the addMinter function in the ChatTokenMinter contract.
 
@@ -9,7 +9,7 @@ const activityPointsAddress = "0x7d20A0E75B1ac519f500a51351bcb01A07fE3D7d"; // T
 const chatEthRatio = 1_000_000; // TODO: 1 ETH = 1,000 CHAT
 
 const sfsAddress = (network.name == "modeTestnet") ? "0xBBd707815a7F7eb6897C7686274AFabd7B579Ff6" : "0x8680CEaBcb9b56913c519c069Add6Bc3494B7020";
-const sfsNftTokenId = 0; // TODO: Enter SFS NFT token ID!!!
+const sfsNftTokenId = 286; // TODO: Enter SFS NFT token ID!!!
 
 if (sfsNftTokenId == 0) {
   console.log("Please enter SFS NFT token ID!!!");

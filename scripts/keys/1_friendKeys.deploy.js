@@ -1,5 +1,5 @@
 // 1. Deploy FriendKeys contract and automatically add it's address to the Stats middleware contract.
-// npx hardhat run scripts/keys/1_friendKeys.deploy.js --network modeTestnet
+// npx hardhat run scripts/keys/1_friendKeys.deploy.js --network modeMainnet
 
 const contractName = "FriendKeys";
 
@@ -8,7 +8,7 @@ const feeReceiver = "0xf0b0D10BE9fb96D139090cfeD4124b74c4D2217B"; // distributor
 const statsAddress = ""; // stats middleware contract address
 
 const sfsAddress = (network.name == "modeTestnet") ? "0xBBd707815a7F7eb6897C7686274AFabd7B579Ff6" : "0x8680CEaBcb9b56913c519c069Add6Bc3494B7020";
-const sfsNftTokenId = 0; // TODO: Enter SFS NFT token ID!!!
+const sfsNftTokenId = 286; // TODO: Enter SFS NFT token ID!!!
 
 if (sfsNftTokenId == 0) {
   console.log("Please enter SFS NFT token ID!!!");

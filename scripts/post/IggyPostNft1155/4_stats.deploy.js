@@ -1,16 +1,16 @@
 // 4. Deploy stats contract
-// npx hardhat run scripts/post/IggyPostNft1155/4_stats.deploy.js --network modeTestnet
+// npx hardhat run scripts/post/IggyPostNft1155/4_stats.deploy.js --network modeMainnet
 
 const contractName = "IggyPostStats";
 
 const sfsAddress = (network.name == "modeTestnet") ? "0xBBd707815a7F7eb6897C7686274AFabd7B579Ff6" : "0x8680CEaBcb9b56913c519c069Add6Bc3494B7020";
-const sfsNftTokenId = 0; // TODO: Enter SFS NFT token ID!!!
+const sfsNftTokenId = 286; // TODO: Enter SFS NFT token ID!!!
 
 if (sfsNftTokenId == 0) {
   console.log("Please enter SFS NFT token ID!!!");
   return;
 }
-const minterAddress = "";
+const minterAddress = "0x2F103ec022a1d99291077a082b2DC24C734E58A3";
 const shouldStatsBeEnabled = true;
 
 const minterInterface = new ethers.utils.Interface([

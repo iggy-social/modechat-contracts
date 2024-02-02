@@ -1,5 +1,5 @@
 // Deploy minter V2 contract
-// npx hardhat run scripts/post/IggyPostNft1155/minterV2.deploy.js --network modeTestnet
+// npx hardhat run scripts/post/IggyPostNft1155/minterV2.deploy.js --network modeMainnet
 // It will automatically set different fees (if needed).
 // It will also automatically add the minter to the ChatTokenMinter contract and change the minter address in the post contract.
 // If any of these actions fail, you must do them manually.
@@ -15,7 +15,7 @@ const chatEthRatio = 10; // 1 ETH/SGB = 10 CHAT
 const chatRewardsDuration = 60 * 60 * 24 * 30 * 11; // 30 days * 12 months = 1 year
 
 const sfsAddress = (network.name == "modeTestnet") ? "0xBBd707815a7F7eb6897C7686274AFabd7B579Ff6" : "0x8680CEaBcb9b56913c519c069Add6Bc3494B7020";
-const sfsNftTokenId = 0; // TODO: Enter SFS NFT token ID!!!
+const sfsNftTokenId = 286; // TODO: Enter SFS NFT token ID!!!
 
 if (sfsNftTokenId == 0) {
   console.log("Please enter SFS NFT token ID!!!");

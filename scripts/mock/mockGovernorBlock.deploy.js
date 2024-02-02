@@ -1,4 +1,4 @@
-// npx hardhat run scripts/mock/mockGovernorBlock.deploy.js --network modeTestnet
+// npx hardhat run scripts/mock/mockGovernorBlock.deploy.js --network modeMainnet
 
 const contractName = "MockGovernorBlock";
 

@@ -1,4 +1,4 @@
-// npx hardhat run scripts/token/ChatTokenMinter/chatTokenMinter.deploy.js --network modeTestnet
+// npx hardhat run scripts/token/ChatTokenMinter/chatTokenMinter.deploy.js --network modeMainnet
 // This script deploys the ChatTokenMinter contract and sets it as the minter in the ChatToken contract.
 // If setting the minter address fails, do it manually by calling the setMinter function in the ChatToken contract.
 
@@ -7,7 +7,7 @@ const contractName = "ChatTokenMinter";
 const chatTokenAddress = "0x81aDd7359f2B95276F8542f2a0acD7ECD2Ae9349";
 
 const sfsAddress = (network.name == "modeTestnet") ? "0xBBd707815a7F7eb6897C7686274AFabd7B579Ff6" : "0x8680CEaBcb9b56913c519c069Add6Bc3494B7020";
-const sfsNftTokenId = 0; // TODO: Enter SFS NFT token ID!!!
+const sfsNftTokenId = 286; // TODO: Enter SFS NFT token ID!!!
 
 if (sfsNftTokenId == 0) {
   console.log("Please enter SFS NFT token ID!!!");

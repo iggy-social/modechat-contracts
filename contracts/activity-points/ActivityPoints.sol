@@ -19,7 +19,6 @@ interface IStats {
 contract ActivityPoints is OwnableWithManagers {
   address public statsAddress; // stats for NFT launchpad, Friend Keys, Swap etc.
   address public mintedPostsStatsAddress;
-  address public tldStatsAddress;
 
   uint256 public bonusWeiTotal; // total bonus wei (without multiplier)
 
@@ -34,7 +33,6 @@ contract ActivityPoints is OwnableWithManagers {
   constructor(
     address _statsAddress,
     address _mintedPostsStatsAddress,
-    address _tldStatsAddress,
     uint256 _multiplier,
     address _sfsAddress,
     uint256 _tokenId
@@ -42,7 +40,6 @@ contract ActivityPoints is OwnableWithManagers {
     ISFS(_sfsAddress).assign(_tokenId);
     statsAddress = _statsAddress;
     mintedPostsStatsAddress = _mintedPostsStatsAddress;
-    tldStatsAddress = _tldStatsAddress;
     multiplier = _multiplier;
   }
 
@@ -67,10 +64,6 @@ contract ActivityPoints is OwnableWithManagers {
       totalWeiSpent += IStats(mintedPostsStatsAddress).getWeiSpent(_user);
     }
 
-    if (tldStatsAddress != address(0)) {
-      totalWeiSpent += IStats(tldStatsAddress).getWeiSpent(_user);
-    }
-
     return totalWeiSpent;
   }
 
@@ -83,10 +76,6 @@ contract ActivityPoints is OwnableWithManagers {
     
     if (mintedPostsStatsAddress != address(0)) {
       totalWeiSpent += IStats(mintedPostsStatsAddress).weiSpentTotal();
-    }
-
-    if (tldStatsAddress != address(0)) {
-      totalWeiSpent += IStats(tldStatsAddress).weiSpentTotal();
     }
 
     return totalWeiSpent;
@@ -132,10 +121,6 @@ contract ActivityPoints is OwnableWithManagers {
 
   function setStatsAddress(address _statsAddress) external onlyManagerOrOwner {
     statsAddress = _statsAddress;
-  }
-
-  function setTldStatsAddress(address _tldStatsAddress) external onlyManagerOrOwner {
-    tldStatsAddress = _tldStatsAddress;
   }
   
 }

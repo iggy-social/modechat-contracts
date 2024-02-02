@@ -81,7 +81,6 @@ describe("ChatTokenClaimActivityPoints", function () {
     const activityPointsContract = await ActivityPoints.deploy(
       ethers.constants.AddressZero, // no token address
       iggyPostStatsContract.address, // IggyPostStats address
-      ethers.constants.AddressZero, // no token address
       1,
       sfsContract.address, // SFS address
       sfsNftTokenId // SFS NFT token ID

@@ -1,4 +1,4 @@
-// npx hardhat run scripts/other/manager/addManager.js --network modeTestnet
+// npx hardhat run scripts/other/manager/addManager.js --network modeMainnet
 
 const managerAddress = "";
 

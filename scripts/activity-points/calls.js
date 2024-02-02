@@ -1,4 +1,4 @@
-// npx hardhat run scripts/activity-points/calls.js --network modeTestnet
+// npx hardhat run scripts/activity-points/calls.js --network modeMainnet
 
 const contractName = "ActivityPoints";
 

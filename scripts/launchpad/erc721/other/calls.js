@@ -1,4 +1,4 @@
-// npx hardhat run scripts/launchpad/erc721/other/calls.js --network modeTestnet
+// npx hardhat run scripts/launchpad/erc721/other/calls.js --network modeMainnet
 
 const contractName = "IggyLaunchpad721Bonding";
 

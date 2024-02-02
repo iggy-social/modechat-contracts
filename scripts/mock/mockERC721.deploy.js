@@ -1,4 +1,4 @@
-// npx hardhat run scripts/mock/mockERC721.deploy.js --network modeTestnet
+// npx hardhat run scripts/mock/mockERC721.deploy.js --network modeMainnet
 
 const contractName = "MockErc721WithMinter";
 

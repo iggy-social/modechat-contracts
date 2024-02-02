@@ -1,7 +1,7 @@
 // TODO:
 // 1. Create the first NFT collection through the factory.
 // 2. Verify the contract on block explorer using this script (run the command below).
-// Run: npx hardhat run scripts/launchpad/erc721/4_verifyNftContract.js --network modeTestnet
+// Run: npx hardhat run scripts/launchpad/erc721/4_verifyNftContract.js --network modeMainnet
 
 const contractAddress = "";
 

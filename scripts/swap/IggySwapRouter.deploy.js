@@ -1,4 +1,4 @@
-// npx hardhat run scripts/swap/IggySwapRouter.deploy.js --network modeTestnet
+// npx hardhat run scripts/swap/IggySwapRouter.deploy.js --network modeMainnet
 
 const contractName = "IggySwapRouter";
 
@@ -7,7 +7,7 @@ const routerAddress = ""; // mandatory
 const frontendAddress = ethers.constants.AddressZero; // optional
 const stakingAddress = ethers.constants.AddressZero; // optional
 const statsAddress = ""; // stats middleware address (optional)
-const sfsNftTokenId = 0; // TODO: Enter SFS NFT token ID!!!
+const sfsNftTokenId = 286; // TODO: Enter SFS NFT token ID!!!
 
 const swapFee = 80; // 0.8%
 const stakingShare = 4000; // bps

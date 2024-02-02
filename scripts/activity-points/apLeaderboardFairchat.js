@@ -1,4 +1,4 @@
-// npx hardhat run scripts/activity-points/apLeaderboardFairchat.js --network modeTestnet
+// npx hardhat run scripts/activity-points/apLeaderboardFairchat.js --network modeMainnet
 
 const contractName = "ActivityPoints";
 

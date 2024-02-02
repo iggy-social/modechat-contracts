@@ -1,15 +1,15 @@
 // 1. Deploy metadata contract
-// npx hardhat run scripts/post/IggyPostNft1155/1_metadata.deploy.js --network modeTestnet
+// npx hardhat run scripts/post/IggyPostNft1155/1_metadata.deploy.js --network modeMainnet
 
 const contractName = "IggyPostMetadata";
 
 const mdName = "ModeChat Post";
 const description = "ModeChat.xyz is the first decentralized social network on the Mode Network. Go visit here: https://modechat.xyz/";
 const url = "https://modechat.xyz/post/";
-const tldAddress = "";
+const tldAddress = "0x523a7050df3DC7E96B7faAF4dDECCc244d886a90";
 
 const sfsAddress = (network.name == "modeTestnet") ? "0xBBd707815a7F7eb6897C7686274AFabd7B579Ff6" : "0x8680CEaBcb9b56913c519c069Add6Bc3494B7020";
-const sfsNftTokenId = 0; // TODO: Enter SFS NFT token ID!!!
+const sfsNftTokenId = 286; // TODO: Enter SFS NFT token ID!!!
 
 if (sfsNftTokenId == 0) {
   console.log("Please enter SFS NFT token ID!!!");

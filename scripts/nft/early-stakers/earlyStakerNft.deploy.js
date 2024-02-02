@@ -1,4 +1,4 @@
-// npx hardhat run scripts/nft/early-stakers/earlyStakerNft.deploy.js --network modeTestnet
+// npx hardhat run scripts/nft/early-stakers/earlyStakerNft.deploy.js --network modeMainnet
 
 const data = require("./claimers.json");
 const { StandardMerkleTree } = require("@openzeppelin/merkle-tree");
@@ -24,7 +24,7 @@ const merkleRoot = String(tree.root);
 console.log("Merkle root: " + merkleRoot);
 
 const sfsAddress = (network.name == "modeTestnet") ? "0xBBd707815a7F7eb6897C7686274AFabd7B579Ff6" : "0x8680CEaBcb9b56913c519c069Add6Bc3494B7020";
-const sfsNftTokenId = 0; // TODO: Enter SFS NFT token ID!!!
+const sfsNftTokenId = 286; // TODO: Enter SFS NFT token ID!!!
 
 if (sfsNftTokenId == 0) {
   console.log("Please enter SFS NFT token ID!!!");

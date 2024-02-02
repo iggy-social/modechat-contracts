@@ -1,4 +1,4 @@
-// npx hardhat run scripts/nft/early-stakers/onlyMetadata.deploy.js --network modeTestnet
+// npx hardhat run scripts/nft/early-stakers/onlyMetadata.deploy.js --network modeMainnet
 
 const contractName = "EarlyStakerMetadata";
 

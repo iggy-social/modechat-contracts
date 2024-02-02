@@ -1,4 +1,4 @@
-// npx hardhat run scripts/mock/mockTokenVotingBlock.deploy.js --network modeTestnet
+// npx hardhat run scripts/mock/mockTokenVotingBlock.deploy.js --network modeMainnet
 
 const contractName = "MockErc20TokenVotingBlock";
 

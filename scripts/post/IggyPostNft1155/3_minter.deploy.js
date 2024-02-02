@@ -1,18 +1,18 @@
 // 3. Deploy minter contract
-// npx hardhat run scripts/post/IggyPostNft1155/3_minter.deploy.js --network modeTestnet
+// npx hardhat run scripts/post/IggyPostNft1155/3_minter.deploy.js --network modeMainnet
 
 const contractName = "IggyPostMinter";
 
 const sfsAddress = (network.name == "modeTestnet") ? "0xBBd707815a7F7eb6897C7686274AFabd7B579Ff6" : "0x8680CEaBcb9b56913c519c069Add6Bc3494B7020";
-const sfsNftTokenId = 0; // TODO: Enter SFS NFT token ID!!!
+const sfsNftTokenId = 286; // TODO: Enter SFS NFT token ID!!!
 
 if (sfsNftTokenId == 0) {
   console.log("Please enter SFS NFT token ID!!!");
   return;
 }
-const daoAddress = ""; // distributor contract
-const devAddress = ""; // iggy address
-const postAddress = "";
+const daoAddress = "0x20aeB41bCfaFb05b580dB2f687123eDa605315Ed"; // distributor contract
+const devAddress = "0xb29050965A5AC70ab487aa47546cdCBc97dAE45D"; // iggy address
+const postAddress = "0x5e54CebB2612744cB56547bC7CC41466ad7ac557";
 
 const daoFee = 2000; // 10%
 const devFee = 0; // 10%

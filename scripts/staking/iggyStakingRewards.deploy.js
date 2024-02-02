@@ -1,4 +1,4 @@
-// npx hardhat run scripts/staking/iggyStakingRewards.deploy.js --network modeTestnet
+// npx hardhat run scripts/staking/iggyStakingRewards.deploy.js --network modeMainnet
 const contractName = "IggyStakingRewards";
 
 const assetAddress = ""; // token to stake
@@ -10,7 +10,7 @@ const minDeposit = 1; // 1 wei LP tokens minimum deposit to stake
 const periodLength = 604800; // 7 days
 
 const sfsAddress = (network.name == "modeTestnet") ? "0xBBd707815a7F7eb6897C7686274AFabd7B579Ff6" : "0x8680CEaBcb9b56913c519c069Add6Bc3494B7020";
-const sfsNftTokenId = 0; // TODO: Enter SFS NFT token ID!!!
+const sfsNftTokenId = 286; // TODO: Enter SFS NFT token ID!!!
 
 if (sfsNftTokenId == 0) {
   console.log("Please enter SFS NFT token ID!!!");
