@@ -2,11 +2,11 @@
 
 const contractName = "IggySwapRouter";
 
-const iggyAddress = ""; // mandatory (distributor)
-const routerAddress = ""; // mandatory
+const iggyAddress = "0x20aeB41bCfaFb05b580dB2f687123eDa605315Ed"; // mandatory (distributor)
+const routerAddress = "0x082C1E810B6518a65ae61d9C07dc25d9ffe61Ae6"; // mandatory
 const frontendAddress = ethers.constants.AddressZero; // optional
 const stakingAddress = ethers.constants.AddressZero; // optional
-const statsAddress = ""; // stats middleware address (optional)
+const statsAddress = "0xb29e981343daa6ea18D58cdB0800DFE962aA53e4"; // stats middleware address (optional)
 const sfsNftTokenId = 286; // TODO: Enter SFS NFT token ID!!!
 
 const swapFee = 80; // 0.8%
