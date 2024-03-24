@@ -1,4 +1,4 @@
-// npx hardhat test test/token/chatTokenClaimActivityPoints.test.js
+// npx hardhat test test/token/chat/chatTokenClaimActivityPoints.test.js
 
 const { expect } = require("chai");
 
