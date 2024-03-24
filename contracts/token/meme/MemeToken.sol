@@ -59,6 +59,7 @@ contract MemeToken is ERC20, Ownable, ERC20Votes {
   }
 
   function mintStart() external onlyOwner {
+    require(deadline == 0, "Minting period has already started");
     deadline = block.timestamp + 2 weeks; // minting period is 2 weeks
   }
 
