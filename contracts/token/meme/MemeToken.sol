@@ -10,7 +10,9 @@ interface ISFS {
 }
 
 contract MemeToken is ERC20, Ownable, ERC20Votes {
-  address public minter;
+  uint256 public deadline; // timestamp when the token minting ends (see mintStart() function)
+
+  mapping(address => bool) public isMinter; // addresses that have minting privileges
 
   // EVENTS
   event MinterAddressChanged(address indexed _owner, address indexed _minter);
@@ -40,22 +42,25 @@ contract MemeToken is ERC20, Ownable, ERC20Votes {
   // MINTER
 
   function mint(address _to, uint256 _amount) external {
-    require(msg.sender == minter, "Only minter can mint");
+    require(deadline == 0, "Minting is paused");
+    require(isMinter[msg.sender], "Only minters can mint");
+    require(block.timestamp < deadline, "Minting period has ended");
+
     _mint(_to, _amount);
   }
 
   // OWNER
 
-  function removeMinterAndRenounce() external onlyOwner {
-    minter = address(0);
-    emit MinterAddressChanged(msg.sender, address(0));
-
-    renounceOwnership();
+  function addMinter(address _minter) external onlyOwner {
+    isMinter[_minter] = true;
   }
 
-  function setMinter(address _minter) external onlyOwner {
-    minter = _minter;
-    emit MinterAddressChanged(msg.sender, _minter);
+  function removeMinter(address _minter) external onlyOwner {
+    isMinter[_minter] = false;
+  }
+
+  function mintStart() external onlyOwner {
+    deadline = block.timestamp + 2 weeks; // minting period is 2 weeks
   }
 
   // INTERNAL (ERC20Votes requirements)
