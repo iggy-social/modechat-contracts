@@ -42,7 +42,6 @@ contract MemeToken is ERC20, Ownable, ERC20Votes {
   // MINTER
 
   function mint(address _to, uint256 _amount) external {
-    require(deadline == 0, "Minting is paused");
     require(isMinter[msg.sender], "Only minters can mint");
     require(block.timestamp < deadline, "Minting period has ended");
 
